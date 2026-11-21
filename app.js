@@ -17,13 +17,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-// --- 1. Database Connection Pool ---
+// --- 1. Database Connection Pool --- Aiven port
 const pool = mysql.createPool({
     host: process.env.AIVEN_MYSQL_HOST,
     user: process.env.AIVEN_MYSQL_USER,
     password: process.env.AIVEN_MYSQL_PASSWORD,
     database: process.env.AIVEN_MYSQL_DBNAME,
-    port: 21425,
+    port: 4000,
     ssl: {
         ca: fs.readFileSync('/etc/secrets/MYSQL_SSL_CA').toString()
     },
