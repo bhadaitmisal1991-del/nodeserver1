@@ -23,7 +23,7 @@ const pool = mysql.createPool({
     user: process.env.AIVEN_MYSQL_USER,
     password: process.env.AIVEN_MYSQL_PASSWORD,
     database: process.env.AIVEN_MYSQL_DBNAME,
-    port: 4000,
+    port: etc/secrets,
     ssl: {
         ca: fs.readFileSync('/etc/secrets/MYSQL_SSL_CA').toString()
     },
@@ -80,7 +80,7 @@ app.post('/api/login', async (req, res) => {
             return res.status(401).send('User not found');
         }
 
-        // 3. FIX: rows is an array, we need the first object inside it
+        // 3. FIX: rows is an array, we need the first object insetc/secretside it
         const user = rows[0]; 
 
         // 4. This will now correctly show: [ 'id', 'email', 'password', ... ]
@@ -102,6 +102,8 @@ app.post('/api/login', async (req, res) => {
 
     } catch (err) {
         console.error("Login Error:", err);
+        console.error("Login Error:", err.code);
+        console.error("Login Error:", err.hostname);
         res.status(500).send('Login error');
     }
 });
